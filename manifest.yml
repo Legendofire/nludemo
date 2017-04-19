@@ -1,8 +1,0 @@
-applications:
-- path: .
-  memory: 128M
-  instances: 1
-  domain: mybluemix.net
-  name: nludemo
-  host: nludemo
-  disk_quota: 1024M
