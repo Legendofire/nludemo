@@ -34,7 +34,6 @@ class Welcome extends CI_Controller {
     }
 
     public function process() {
-        echo json_encode('hi');
         header('Access-Control-Allow-Origin: *');
         $text = $_POST['text'];
         
