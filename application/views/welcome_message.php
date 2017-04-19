@@ -74,6 +74,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 type: "POST",
                 url: "<?php echo base_url() ?>index.php/Welcome/process",
                 dataType: "json",
+                timeout: 50000,
                 data: {
                     text: $("#input").val()
                 },
