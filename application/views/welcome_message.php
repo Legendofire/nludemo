@@ -82,8 +82,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 },
                 success: function (html) {
                     fill_table(html);
+                    
                 },
-                complete: function(){
+                complete: function () {
                     $('#spinner').modal('hide');
                 }
             });
@@ -92,9 +93,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         function fill_table(data) {
             $("#table_body").html("");
-            for (var i = 0; i < data.keywords.length; i++) {
-                var row = '<tr><td>' + data.keywords[i].text + '</td><td>' + data.keywords[i].relevance + '</td><td><a href="' + data.keywords[i].link + '">' + data.keywords[i].link + '</a></td></tr>'
-                $("#table_body").append(row);
+            try {
+                for (var i = 0; i < data.concepts.length; i++) {
+                    var row = '<tr><td>' + data.concepts[i].text + '</td><td>' + data.concepts[i].relevance + '</td><td><a href="' + data.concepts[i].link + '">' + data.concepts[i].link + '</a></td></tr>'
+                    $("#table_body").append(row);
+                }
+            } catch(err){
+                for (var i = 0; i < data.keywords.length; i++) {
+                    var row = '<tr><td>' + data.keywords[i].text + '</td><td>' + data.keywords[i].relevance + '</td><td><a href="' + data.keywords[i].link + '">' + data.keywords[i].link + '</a></td></tr>'
+                    $("#table_body").append(row);
+                }
             }
         }
     </script>
