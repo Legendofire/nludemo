@@ -18,17 +18,20 @@ class Welcome extends CI_Controller {
 
         if ($isUrl) {
             $response = file_get_contents('https://6fa349f6-dec8-4bd7-a9ab-ab3a579e3999:NZP76VFjCvbd@gateway.watsonplatform.net/natural-language-understanding/api/v1/analyze?version=2017-02-27&url=' . urlencode($text) . '&features=concepts', false, stream_context_create($arrContextOptions));
+            $f = json_decode($response);
+
+            foreach ($f->concepts as $item) {
+                $item->link = 'https://console.ng.bluemix.net/catalog/?search=' . urlencode($item->text);
+            }
         } else {
             $response = file_get_contents('https://6fa349f6-dec8-4bd7-a9ab-ab3a579e3999:NZP76VFjCvbd@gateway.watsonplatform.net/natural-language-understanding/api/v1/analyze?version=2017-02-27&text=' . urlencode($text) . '&features=keywords', false, stream_context_create($arrContextOptions));
+            $f = json_decode($response);
+
+            foreach ($f->keywords as $item) {
+                $item->link = 'https://console.ng.bluemix.net/catalog/?search=' . urlencode($item->text);
+            }
         }
 
-        $f = json_decode($response);
-
-
-
-        foreach ($f->keywords as $item) {
-            $item->link = 'https://console.ng.bluemix.net/catalog/?search=' . urlencode($item->text);
-        }
 
         return $f;
     }
@@ -36,7 +39,7 @@ class Welcome extends CI_Controller {
     public function process() {
         header('Access-Control-Allow-Origin: *');
         $text = $_POST['text'];
-        
+
         $regex = "((https?|ftp)\:\/\/)?"; // SCHEME 
         $regex .= "([a-z0-9+!*(),;?&=\$_.-]+(\:[a-z0-9+!*(),;?&=\$_.-]+)?@)?"; // User and Pass 
         $regex .= "([a-z0-9-.]*)\.([a-z]{2,3})"; // Host or IP 
@@ -48,7 +51,7 @@ class Welcome extends CI_Controller {
         if (preg_match("/^$regex$/i", $text)) { // `i` flag for case-insensitive
             $isUrl = true;
         }
-        
+
         echo json_encode($this->getKeyWords($text, $isUrl));
     }
 
