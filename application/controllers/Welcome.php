@@ -17,7 +17,7 @@ class Welcome extends CI_Controller {
         );
 
         if ($isUrl) {
-            $response = file_get_contents('https://6fa349f6-dec8-4bd7-a9ab-ab3a579e3999:NZP76VFjCvbd@gateway.watsonplatform.net/natural-language-understanding/api/v1/analyze?version=2017-02-27&url=' . urlencode($text) . '&features=keywords', false, stream_context_create($arrContextOptions));
+            $response = file_get_contents('https://6fa349f6-dec8-4bd7-a9ab-ab3a579e3999:NZP76VFjCvbd@gateway.watsonplatform.net/natural-language-understanding/api/v1/analyze?version=2017-02-27&url=' . urlencode($text) . '&features=concepts', false, stream_context_create($arrContextOptions));
             $f = json_decode($response);
 
             foreach ($f->concepts as $item) {
