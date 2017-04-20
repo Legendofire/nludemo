@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Welcome extends CI_Controller {
 
     public function index() {
-        $this->load->view('welcome_message');
+        $this->load->view('welcome_message_1');
     }
 
     public function getKeyWords($text, $isUrl) {
@@ -17,14 +17,10 @@ class Welcome extends CI_Controller {
         );
 
         if ($isUrl) {
-            $response = file_get_contents('https://6fa349f6-dec8-4bd7-a9ab-ab3a579e3999:NZP76VFjCvbd@gateway.watsonplatform.net/natural-language-understanding/api/v1/analyze?version=2017-02-27&url=' . urlencode($text) . '&features=concepts', false, stream_context_create($arrContextOptions));
+            $response = file_get_contents('https://6fa349f6-dec8-4bd7-a9ab-ab3a579e3999:NZP76VFjCvbd@gateway.watsonplatform.net/natural-language-understanding/api/v1/analyze?version=2017-02-27&url=' . urlencode($text) . '&features=concepts,categories,entities,keywords,sentiment,emotion,relations,metadata,semantic_roles', false, stream_context_create($arrContextOptions));
             $f = json_decode($response);
-
-            foreach ($f->concepts as $item) {
-                $item->link = 'https://console.ng.bluemix.net/catalog/?search=' . urlencode($item->text);
-            }
         } else {
-            $response = file_get_contents('https://6fa349f6-dec8-4bd7-a9ab-ab3a579e3999:NZP76VFjCvbd@gateway.watsonplatform.net/natural-language-understanding/api/v1/analyze?version=2017-02-27&text=' . urlencode($text) . '&features=keywords', false, stream_context_create($arrContextOptions));
+            $response = file_get_contents('https://6fa349f6-dec8-4bd7-a9ab-ab3a579e3999:NZP76VFjCvbd@gateway.watsonplatform.net/natural-language-understanding/api/v1/analyze?version=2017-02-27&text=' . urlencode($text) . '&features=keywordsconcepts,categories,entities,keywords,sentiment,emotion,relations,metadata,semantic_roles', false, stream_context_create($arrContextOptions));
 
             $f = json_decode($response);
 
@@ -32,8 +28,7 @@ class Welcome extends CI_Controller {
                 $item->link = 'https://console.ng.bluemix.net/catalog/?search=' . urlencode($item->text);
             }
         }
-
-
+        
         return $f;
     }
 

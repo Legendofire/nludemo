@@ -72,7 +72,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             jQuery.ajax({
                 type: "POST",
-                url: "https://nludemo.mybluemix.net/index.php/Welcome/process",
+                //url: "https://nludemo.mybluemix.net/index.php/Welcome/process",
+                url: "<?php echo base_url()?>/index.php/Welcome/process",
                 dataType: "json",
                 data: {
                     text: $("#input").val()
