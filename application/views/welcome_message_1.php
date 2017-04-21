@@ -217,10 +217,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <h3>Sentiment</h3>
                     <div class="row">
                         <div class="col-md-6" style="display:none" id="happy">
-                            <img src="<?php base_url() ?>Assets/happy_smile.png" class="img-responsive" alt="Cinque Terre">
+                            <img src="https://nludemo.mybluemix.net/Assets/happy_smile.png" class="img-responsive" alt="Cinque Terre">
                         </div>
                         <div class="col-md-6" style="display:none" id="sad">
-                            <img src="<?php base_url() ?>Assets/sad_smile.jpeg" class="img-responsive" alt="Cinque Terre">
+                            <img src="https://nludemo.mybluemix.net/Assets/sad_smile.jpeg" class="img-responsive" alt="Cinque Terre">
                         </div>
                         <div class="col-md-6">
                             <p style="text-align: center">
@@ -312,8 +312,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $("#check_this").on('click', function () {
             jQuery.ajax({
                 type: "POST",
-                //url: "https://nludemo.mybluemix.net/index.php/Welcome/process",
-                url: "<?php echo base_url() ?>/index.php/Welcome/process",
+                url: "https://nludemo.mybluemix.net/index.php/Welcome/process",
+                //url: "<?php echo base_url() ?>/index.php/Welcome/process",
                 dataType: "json",
                 data: {
                     text: $("#input").val()
